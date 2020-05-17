@@ -11,15 +11,15 @@ def getImage():
     return temp
 
 
-def kmeans_algo(k=3, img=None):
-    flag = False
+def kmeans_algo(k=5, img=None):
+    flag = 0
     kmean = [(0, 0, 0)]*k
     # initialising the random majors
     for i in range(k):
         kmean[i] = np.random.randint(0, 256, 3)
 
 
-    while flag == False:
+    while flag != k:
         # this is used to store the point in specific mean category
         points = [[] for i in range(k)]
 
@@ -37,20 +37,22 @@ def kmeans_algo(k=3, img=None):
         # avg of the k means
         for i in range(k):
             sum = (0, 0, 0)
+            divisor = (len(points[i]), len(points[i]), len(points[i]))
             for j in range(len(points[i])):
                 sum += points[i][j]
-            avg = sum/len(points[i])
+            avg = sum/divisor
             comparison = avg == kmean[i]
             if comparison.all():
-                flag = True
+                flag+=1
             kmean[i] = avg
-
+        if flag==k:
+            break
     return kmean
 
 
 def __main__():
     temp = getImage()
-    print(kmeans_algo(3, temp))
+    print(kmeans_algo(5, temp))
     return 0
 
 
