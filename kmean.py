@@ -59,12 +59,15 @@ def saveImage(image, experiment, imgnum):
 def __main__():
     temp = getImage()
     image = [[[0 for _ in range(3)] for _ in range(200)] for _ in range(220)]
-    kmean, pixel = kmeans_algo(3, temp)
-
-    for i in range(3):
+    # calling kmeans algorithm
+    # set value of colors in the function below
+    kmean, pixel = kmeans_algo(5, temp)
+    # generating image for saving purposes
+    # set appriopriately the color
+    for i in range(5):
         for j in pixel[i]:
             image[j[0]][j[1]]=kmean[i]
-
+    # image saving
     saveImage(np.asarray(image),1, 1)
 
     return 0
